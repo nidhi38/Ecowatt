@@ -27,23 +27,38 @@ export function PortfolioAnalytics() {
     if (!mounted) return;
 
     const fetchData = async () => {
-      if (!isConnected || !address) return;
+      if (!isConnected || !address) {
+        console.log('[v0] Portfolio: Not connected or no address');
+        setLoading(false);
+        return;
+      }
 
       try {
+        console.log('[v0] Portfolio: Fetching data for address:', address);
         const userData = await getOrCreateUser(address);
+        console.log('[v0] Portfolio: User data:', userData);
         setUser(userData);
 
-        const [ordersData, leaderboardData, txHistory] = await Promise.all([
-          getUserOrders(userData!.id),
-          getLeaderboard(10),
-          getTransactionHistory(userData!.id, 20),
-        ]);
+        if (userData) {
+          const [ordersData, leaderboardData, txHistory] = await Promise.all([
+            getUserOrders(userData.id),
+            getLeaderboard(10),
+            getTransactionHistory(userData.id, 20),
+          ]);
 
-        setOrders(ordersData);
-        setLeaderboard(leaderboardData);
-        setTransactionHistory(txHistory);
+          console.log('[v0] Portfolio: Orders:', ordersData?.length || 0);
+          console.log('[v0] Portfolio: Leaderboard:', leaderboardData?.length || 0);
+          console.log('[v0] Portfolio: Transactions:', txHistory?.length || 0);
+
+          setOrders(ordersData || []);
+          setLeaderboard(leaderboardData || []);
+          setTransactionHistory(txHistory || []);
+        }
       } catch (error) {
-        console.error('Error fetching portfolio data:', error);
+        console.error('[v0] Portfolio: Error fetching portfolio data:', error);
+        setOrders([]);
+        setLeaderboard([]);
+        setTransactionHistory([]);
       } finally {
         setLoading(false);
       }

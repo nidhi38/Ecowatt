@@ -14,7 +14,7 @@ export async function getOrCreateUser(walletAddress: string): Promise<User | nul
       const newUser = {
         wallet_address: walletAddress.toLowerCase(),
         username: `User-${walletAddress.slice(2, 8)}`,
-        balance: 1000, // Initial balance for demo
+        balance: 1000000, // Initial balance: 1,000,000 kWh
         total_traded: 0,
       };
 

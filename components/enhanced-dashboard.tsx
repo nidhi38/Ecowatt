@@ -34,27 +34,43 @@ export function EnhancedDashboard() {
 
     const fetchData = async () => {
       if (!isConnected || !address) {
+        console.log('[v0] Not connected or no address:', { isConnected, address });
         setLoading(false);
         return;
       }
 
       try {
+        console.log('[v0] Fetching data for address:', address);
         const userData = await getOrCreateUser(address);
+        console.log('[v0] User data received:', userData);
         setUser(userData);
 
         if (userData) {
+          console.log('[v0] Fetching orders, prices, and leaderboard...');
           const [ordersData, pricesData, leaderboardData] = await Promise.all([
             getUserOrders(userData.id),
             getPriceHistory(30),
             getLeaderboard(5),
           ]);
 
-          setOrders(ordersData);
-          setPriceHistory(pricesData);
-          setLeaderboard(leaderboardData);
+          console.log('[v0] Orders:', ordersData?.length || 0);
+          console.log('[v0] Prices:', pricesData?.length || 0);
+          console.log('[v0] Leaderboard:', leaderboardData?.length || 0);
+
+          setOrders(ordersData || []);
+          setPriceHistory(pricesData || []);
+          setLeaderboard(leaderboardData || []);
+        } else {
+          console.error('[v0] Failed to get/create user');
+          setOrders([]);
+          setPriceHistory([]);
+          setLeaderboard([]);
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('[v0] Error fetching data:', error);
+        setOrders([]);
+        setPriceHistory([]);
+        setLeaderboard([]);
       } finally {
         setLoading(false);
       }

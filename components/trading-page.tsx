@@ -32,22 +32,30 @@ export function TradingPage() {
     if (!mounted) return;
 
     const fetchData = async () => {
-      if (!isConnected || !address) return;
+      if (!isConnected || !address) {
+        console.log('[v0] Trading: Not connected or no address');
+        setLoading(false);
+        return;
+      }
 
       try {
+        console.log('[v0] Trading: Fetching data for address:', address);
         const userData = await getOrCreateUser(address);
+        console.log('[v0] Trading: User data:', userData);
         setUser(userData);
 
         const prices = await getPriceHistory(50);
-        setPriceHistory(prices);
+        console.log('[v0] Trading: Got prices:', prices?.length || 0);
+        setPriceHistory(prices || []);
 
-        if (prices.length > 0) {
+        if (prices && prices.length > 0) {
           const avgPrice =
-            prices.reduce((sum, p) => sum + p.price, 0) / prices.length;
+            prices.reduce((sum: number, p: any) => sum + p.price, 0) / prices.length;
           setCurrentPrice(avgPrice);
+          console.log('[v0] Trading: Current price:', avgPrice);
         }
       } catch (error) {
-        console.error('Error fetching trading data:', error);
+        console.error('[v0] Trading: Error fetching trading data:', error);
       } finally {
         setLoading(false);
       }
