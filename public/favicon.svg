@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="62" fill="#e8f5e9" stroke="#a1d8a6" stroke-width="2"/>
+  
+  <!-- Lightning bolt (energy) in sage green -->
+  <path d="M 64 20 L 45 55 L 70 55 L 50 105 L 85 60 L 60 60 Z" fill="#6bb695" stroke="#4a8a6d" stroke-width="1.5"/>
+  
+  <!-- Subtle power wave lines -->
+  <path d="M 35 80 Q 40 75 45 80 T 55 80" fill="none" stroke="#a1d8a6" stroke-width="2" opacity="0.6"/>
+  <path d="M 73 80 Q 78 75 83 80 T 93 80" fill="none" stroke="#a1d8a6" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Energy dots -->
+  <circle cx="28" cy="35" r="2.5" fill="#a1d8a6" opacity="0.8"/>
+  <circle cx="100" cy="40" r="2.5" fill="#a1d8a6" opacity="0.8"/>
+  <circle cx="105" cy="85" r="2.5" fill="#a1d8a6" opacity="0.8"/>
+</svg>
