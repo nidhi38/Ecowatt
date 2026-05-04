@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BarChart3, TrendingUp, Zap, User, Home, LineChart, History, Bell, Settings } from 'lucide-react';
+import { BarChart3, TrendingUp, Zap, User, Home, LineChart, History, Bell, Settings, Network } from 'lucide-react';
 
 export function Navigation() {
   const pathname = usePathname();
@@ -75,6 +75,17 @@ export function Navigation() {
             >
               <LineChart className="w-4 h-4" />
               Analytics
+            </Link>
+            <Link
+              href="/blockchain"
+              className={`px-4 py-2 rounded-lg font-medium transition flex items-center gap-2 ${
+                isActive('/blockchain')
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-foreground hover:bg-secondary/20'
+              }`}
+            >
+              <Network className="w-4 h-4" />
+              Blockchain
             </Link>
             <Link
               href="/transactions"
